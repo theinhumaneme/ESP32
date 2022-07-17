@@ -9,7 +9,7 @@ After the install connect your board and see if you can see any `COM Ports` unde
 Head over to Silicon Labs website - [silabs.com](https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers) and install the drivers
 
 ## Linux Install and Setup
-Download the LINUX `32bits/64bits` as per your device OS.\
+Download the LINUX `32bits/64bits` zip file as per your device OS.\
 Download the `arduino-*.*.*-linux64.tar.xz` to Downloads folder and extract its contents.\
 ```
 # Make a copy of the folder on Desktop
@@ -47,6 +47,6 @@ Under `File > Preferences` check the following boxes\
 - Enable Code Folding
 - Save when verfiying or uploading
 
-### Optional
+## Optional
 - Level of Compiler Warnings
 - Display of Verbose Output during `compilation and upload`
