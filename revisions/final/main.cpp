@@ -30,7 +30,6 @@ Servo topLid;
 #define BUZZER 16
 // DEFINE HTTP and WiFi
 WiFiMulti WIFI;
-// #define REQUEST "https://script.google.com/macros/s/AKfycbw9ya_ubtclOguJg2MdQg6p049LXC3TP_9N1HSJJ0Gwlf6lorxht9qnf6FF-6H1MFkJTA/exec?"
 #define REQUEST "https://script.google.com/macros/s/AKfycbxqsNNCTDZDsVbmvNtU8_yGrKtg_2W0dsMwheFnP9rFZ0UFduCthMpk-mRJf_H7FijcLQ/exec?"
 
 // DEFINE WIFI SSID AND PASSWORD

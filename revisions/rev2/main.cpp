@@ -30,28 +30,24 @@ Servo topLid;
 #define BUZZER 16
 // DEFINE HTTP and WiFi
 WiFiMulti WIFI;
-// #define REQUEST "https://script.google.com/macros/s/AKfycbw9ya_ubtclOguJg2MdQg6p049LXC3TP_9N1HSJJ0Gwlf6lorxht9qnf6FF-6H1MFkJTA/exec?"
-#define REQUEST "https://script.google.com/macros/s/AKfycbxqsNNCTDZDsVbmvNtU8_yGrKtg_2W0dsMwheFnP9rFZ0UFduCthMpk-mRJf_H7FijcLQ/exec?"
+#define REQUEST "https://script.google.com/macros/s/AKfycbw9ya_ubtclOguJg2MdQg6p049LXC3TP_9N1HSJJ0Gwlf6lorxht9qnf6FF-6H1MFkJTA/exec?"
 
 // DEFINE WIFI SSID AND PASSWORD
 #define WIFI_SSID "ESP32"
 #define WIFI_PASS ""
 
+// OTHER SHORTCUTS
+#define SYSTEM_OUT Serial
+
 // DEFINE DELAYS
-#define smallDelay 1000
+#define smallDelay 200
 #define regDelay 3000
 #define longDelay 5000
-
-// DEFINE FORCE SENSOR
-#define FS_PIN 32
 
 // DEFINE OLED
 #define SSD1306_WHITE 1
 Adafruit_SSD1306 display(-1);
 
-// DEFINE user
-
-#define recepient "19r11a04n1@gcet.edu.in"
 // DEFINE MQ135 to sens CO2
 #define placa "ESP-32"
 #define Voltage_Resolution 3.3
@@ -61,11 +57,6 @@ Adafruit_SSD1306 display(-1);
 #define RatioMQ135CleanAir 3.6
 double CO2 = (0);
 MQUnifiedsensor MQ135(placa, Voltage_Resolution, ADC_Bit_Resolution, pin, type);
-
-
-// ALERT LEVEL
-int ALERT_LEVEL=2;
-int ALERT_PARAM=3;
 
 void display_OLED(float temp, float humidity, float co2, float weight)
 {
@@ -97,8 +88,8 @@ void setup()
     // put your setup code here, to run once:
     calor.begin();
     topLid.attach(SERVO_PIN);
-    Serial.begin(9600);
-    Serial.println("PROGRAM INITIATED");
+    SYSTEM_OUT.begin(9600);
+    SYSTEM_OUT.println("PROGRAM INITIATED");
     // Add Access Point
     WIFI.addAP(WIFI_SSID, WIFI_PASS);
     topLid.write(CLOSE_LID);
@@ -148,69 +139,31 @@ void loop()
     if (WIFI.run() == WL_CONNECTED)
     {
         HTTPClient http;
-        Serial.println("CONNECTED TO WIFI NETWORK");
+        //    SYSTEM_OUT.println("CONNECTED TO WIFI NETWORK");
         float sensTemp = calor.readTemperature();
         float sensMoist = calor.readHumidity();
-        float force_sensor = analogRead(FS_PIN);
+        SYSTEM_OUT.println(sensTemp);
+        SYSTEM_OUT.println(sensMoist);
+        topLid.write(OPEN_LID);
+        digitalWrite(BUZZER, HIGH);
+        topLid.write(CLOSE_LID);
+        digitalWrite(BUZZER, LOW);
         MQ135.update();           // Update data, the arduino will be read the voltage on the analog pin
         CO2 = MQ135.readSensor(); // Sensor will read CO2 concentration using the model and a and b values setted before or in the setup
-        
-        // PRINT DATA TO CONSOLE AND DISPLAY ON OLED DISPLAY
-        Serial.print("Force: ");
-        Serial.println(force_sensor);
-        Serial.print("Temperature: ");
-        Serial.println(sensTemp);
-        Serial.print("Moisture: ");
-        Serial.println(sensMoist);
-        Serial.print("CO2: ");
-        Serial.println(CO2);
-        display_OLED(sensTemp, sensMoist, CO2, force_sensor);
-
-        if (CO2 > 8 || sensTemp > 55 || sensMoist > 90){
-            // DANGER
-            if (CO2>8){
-                ALERT_PARAM =0;
-            }
-            else if (sensTemp>55){
-                ALERT_PARAM =1;
-            }
-            else if (sensTemp>90){
-                ALERT_PARAM =2;
-            }
-            ALERT_LEVEL=0;
-            topLid.write(OPEN_LID);
-            digitalWrite(BUZZER, HIGH);
-            delay(longDelay);
-            topLid.write(CLOSE_LID);
-            digitalWrite(BUZZER, LOW);
-        }
-        else if (CO2> 4 || sensTemp > 40 || sensMoist > 80){
-            if (CO2>4){
-                ALERT_PARAM =0;
-            }
-            else if (sensTemp>40){
-                ALERT_PARAM =1;
-            }
-            else if (sensMoist>80){
-                ALERT_PARAM =2;
-            }
-            ALERT_LEVEL=1;
-            digitalWrite(BUZZER, HIGH);
-            delay(regDelay);
-            digitalWrite(BUZZER, LOW);
-        }
-        String url = String(REQUEST) + "TEMPERATURE=" + String(sensTemp) + "&HUMIDITY=" + String(sensMoist) + "&CO2_CON=" + String(CO2) + "&WEIGHT=" + String(force_sensor)+ "&LEVEL=" + String(ALERT_LEVEL)+ "&PARAM=" + String(ALERT_PARAM);
+        SYSTEM_OUT.print("CO2: ");
+        SYSTEM_OUT.print(CO2);
+        display_OLED(sensTemp, sensMoist, CO2, 30.00);
+        String url = String(REQUEST) + "TEMPERATURE=" + String(sensTemp) + "&HUMIDITY=" + String(sensMoist) + "&CO2_CON=" + String("DUMMY") + "&WEIGHT=" + String("DUMMY_VAL");
         http.begin(url);
-        Serial.println(url);
         int HTTP_CODE = http.GET();
         if (HTTP_CODE > 0)
         {
             String PAYLOAD = http.getString();
-                 Serial.println(PAYLOAD);
+            //      SYSTEM_OUT.println(PAYLOAD);
         }
     }
     else
     {
-        Serial.println("WIFI CONNECTION NOT ESTABLISHED, TRYING AGAIN");
+        SYSTEM_OUT.println("WIFI CONNECTION NOT ESTABLISHED, TRYING AGAIN");
     }
 }
