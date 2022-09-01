@@ -1,13 +1,10 @@
-# ---
-# more:
-#   - name: News
-#     ref: "/posts"
-#     icon: "gdoc_notification"
-#   - name: Releases
-#     ref: "https://github.com/thegeeklab/hugo-geekdoc/releases"
-#     external: true
-#     icon: "gdoc_download"
-#   - name: View Source
-#     ref: "https://github.com/thegeeklab/hugo-geekdoc"
-#     external: true
-#     icon: "gdoc_github"
+---
+more:
+  - name: Email
+    ref: "mailto:theinhumaneme@gmail.com?subject=I have questions about your Mini Project"
+    external: true
+    icon: "gdoc_email"
+  - name: GitHub
+    ref: "https://github.com/theinhumaneme/"
+    external: true
+    icon: "gdoc_github"
