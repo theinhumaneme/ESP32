@@ -39,7 +39,7 @@ posts_tagged_with: All posts tagged with '{{ . }}'
 #   <svg class="gdoc-icon gdoc_heart"><use xlink:href="#gdoc_heart"></use></svg>
 
 footer_build_with: >
-  Project by <a href="https://kalyanmudumby/me/" class="gdoc-footer__link">Kalyan Mudumby</a>
+  Project by <a href="https://kalyanmudumby.me/" class="gdoc-footer__link">Kalyan Mudumby</a>
 
   
 footer_legal_notice: Legal Notice
