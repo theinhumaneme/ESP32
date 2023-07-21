@@ -4,3 +4,7 @@ header:
     ref: https://github.com/theinhumaneme
     icon: gdoc_github
     external: true
+  - name: Publication
+    ref: https://primerascientific.com/journals/psen/PSEN-02-050
+    external: true
+    icon: "gdoc_language"

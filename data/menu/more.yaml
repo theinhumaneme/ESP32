@@ -8,3 +8,7 @@ more:
     ref: "https://github.com/theinhumaneme/"
     external: true
     icon: "gdoc_github"
+  - name: Publication
+    ref: https://primerascientific.com/journals/psen/PSEN-02-050
+    external: true
+    icon: "gdoc_language"

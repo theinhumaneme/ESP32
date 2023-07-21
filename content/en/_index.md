@@ -8,11 +8,9 @@ geekdocAnchor: false
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD033 -->
 
-
-
 <!-- markdownlint-restore -->
-IOT-BASED FOOD GRAIN STORAGE MONITORING SYSTEM FOR SILOS is a system designed using edge computers / devices, The main objective of the system is to reduce the food grain wastage that is currently a problem in the food sector across India
 
+IOT-BASED FOOD GRAIN STORAGE MONITORING SYSTEM FOR SILOS is a system designed using edge computers / devices, The main objective of the system is to reduce the food grain wastage that is currently a problem in the food sector across India
 
 {{< button size="large" relref="usage/install-setup/getting-started/" >}}Getting Started{{< /button >}}
 
@@ -46,11 +44,12 @@ If you're not around when something goes wrong, system takes control and maximum
 
 ### Want to build your own?
 
-We've got you covered and provided sample codes to verify working of all components, detect faulty components and avoid headaches.
+I've got you covered and provided sample codes to verify working of all components, detect faulty components and avoid headaches.
 
 <--->
 
 ### Improve the project?
-You're free to improve upon this project, keep a watch for the final code upload
+
+You're free to improve upon this project, have a look at the final code for more reference
 
 {{< /columns >}}
